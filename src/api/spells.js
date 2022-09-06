@@ -1,11 +1,14 @@
+import ENDPOINTS from "../const/endpoints";
+import request from "../services/request";
+
 export const getSpells = () => {
-  return fetch("https://wizard-world-api.herokuapp.com/spells").then((res) =>
-    res.json()
-  );
+  return request.get(ENDPOINTS.SPELLS.SPELLS());
 };
 
 export const getSpell = (id) => {
-  return fetch(`https://wizard-world-api.herokuapp.com/spells/${id}`).then(
-    (res) => res.json()
-  );
+  return request.get(ENDPOINTS.SPELLS.SPELL(id));
+};
+
+export const createSpell = (spell) => {
+  return request.post(ENDPOINTS.SPELLS.SPELL(), spell);
 };
