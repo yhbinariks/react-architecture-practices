@@ -1,16 +1,15 @@
 import { useState, useEffect } from "react";
+import { getSpells } from "../api/spells";
 
 export default function () {
   const [spells, setSpells] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://wizard-world-api.herokuapp.com/spells")
-      .then((res) => res.json())
-      .then((data) => {
-        setIsLoading(false);
-        setSpells(data);
-      });
+    getSpells().then((data) => {
+      setIsLoading(false);
+      setSpells(data);
+    });
   }, []);
 
   return {
