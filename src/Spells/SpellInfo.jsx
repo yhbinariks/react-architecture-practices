@@ -1,21 +1,12 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { Button, Col, Row } from "antd";
+import useSpell from "../hooks/useSpell";
 
 export default function SpellInfo({ id, onBack, onMakeFavourite }) {
-  const [spell, setSpell] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const { spell, isLoading } = useSpell(id);
 
-  useEffect(() => {
-    fetch(`https://wizard-world-api.herokuapp.com/spells/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setIsLoading(false);
-        setSpell(data);
-      });
-  }, [id]);
-
-  if (isLoading || !spell) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 
@@ -58,3 +49,9 @@ export default function SpellInfo({ id, onBack, onMakeFavourite }) {
     </div>
   );
 }
+
+SpellInfo.propTypes = {
+  id: PropTypes.string.isRequired,
+  onBack: PropTypes.func.isRequired,
+  onMakeFavourite: PropTypes.func.isRequired,
+};
